@@ -1,6 +1,8 @@
 # cognizant-challenges-api #
 
-![alt text](https://i.ibb.co/3Mfhgyw/1.png)
+.Net + Angular implementation of the cognizant challanges task.
+
+![alt text](https://i.ibb.co/LhMPnvr/1.png)
 ![alt text](https://i.ibb.co/QFPvxfK/2.png)
 
 ## Table of Contents
