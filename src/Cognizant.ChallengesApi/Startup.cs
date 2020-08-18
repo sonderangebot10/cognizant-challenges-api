@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Configuration;
 using Cognizant.ChallangesApi.Diagnostic.Health;
 using Cognizant.ChallangesApi.Filters;
+using Cognizant.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
@@ -57,8 +58,8 @@ namespace Cognizant.ChallangesApi
 
             services.AddMvc(options =>
             {
-                //options.Filters.Add(typeof(DomainExceptionFilter));
-                //options.Filters.Add(typeof(ValidateModelAttribute));
+                options.Filters.Add(typeof(DomainExceptionFilter));
+                options.Filters.Add(typeof(ValidateModelAttribute));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             if (Convert.ToBoolean(Configuration["Swagger:Enabled"]))

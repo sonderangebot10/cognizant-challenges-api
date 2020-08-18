@@ -10,6 +10,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cognizant.ChallengesApi", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cognizant.Infrastructure", "src\Cognizant.Infrastructure\Cognizant.Infrastructure.csproj", "{DFF6F592-DE14-469D-9F64-5D77770B194D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cognizant.Domain", "src\Cognizant.Domain\Cognizant.Domain.csproj", "{6997D85B-8BEC-451A-A70E-DA28A821A07F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{DFF6F592-DE14-469D-9F64-5D77770B194D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFF6F592-DE14-469D-9F64-5D77770B194D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFF6F592-DE14-469D-9F64-5D77770B194D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6997D85B-8BEC-451A-A70E-DA28A821A07F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6997D85B-8BEC-451A-A70E-DA28A821A07F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6997D85B-8BEC-451A-A70E-DA28A821A07F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6997D85B-8BEC-451A-A70E-DA28A821A07F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

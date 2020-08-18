@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Cognizant.Infrastructure.Data.PgSql.Challenges.Repositories;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,15 @@ namespace Cognizant.ChallangesApi.Diagnostic.Health
     {
         private readonly ILogger _logger;
         private readonly StartupHostedServiceHealthCheck _startupHostedServiceHealthCheck;
+        private readonly IChallengesRepository _repo;
 
         public Readiness(ILogger<Readiness> logger,
-            StartupHostedServiceHealthCheck startupHostedServiceHealthCheck)
+            StartupHostedServiceHealthCheck startupHostedServiceHealthCheck,
+            IChallengesRepository repo)
         {
             _logger = logger;
             _startupHostedServiceHealthCheck = startupHostedServiceHealthCheck;
+            _repo = repo;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -27,7 +31,13 @@ namespace Cognizant.ChallangesApi.Diagnostic.Health
 
             Task.Run(async () =>
             {
-                //CHECK IF REPOSITORY IS RESPONDING - LET'S HOPE I WON'T FORGET THIS
+                var result = await _repo.GetChallengesAsync();
+
+                if(result.Count() == 0)
+                {
+                    _logger.LogError("application does not contain any challanges");
+                    return;
+                }
 
                 _startupHostedServiceHealthCheck.StartupTaskCompleted = true;
 

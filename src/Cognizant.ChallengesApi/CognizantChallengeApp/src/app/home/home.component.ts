@@ -11,11 +11,29 @@ import { Challenge } from '../shared/challenge.model';
 export class HomeComponent implements OnInit {
 
   submitForm: FormGroup;
-  taskDescription: string = '';
+  taskDescription = '';
   challenges: Challenge[];
-  isLoading: boolean = false;
+  isLoading = false;
   isCorrect: boolean;
-  error: string = '';
+  error = '';
+
+  startingCode =
+ `using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using System.Text.RegularExpressions;
+
+	namespace Rextester
+	{
+		public class Program
+		{
+			public static void Main(string[] args)
+			{
+				string input=Console.ReadLine();
+				Console.Write("{0}",input);
+			}
+		}
+	}    `;
 
   ngOnInit(): void {
     this.submitForm = this.formBuilder.group({
@@ -23,6 +41,7 @@ export class HomeComponent implements OnInit {
       challenge: ['', Validators.required],
       solution: ['', Validators.required],
     });
+    this.submitForm.controls['solution'].setValue(this.startingCode);
   }
 
   constructor(
@@ -40,38 +59,41 @@ export class HomeComponent implements OnInit {
 
     if (this.submitForm.value.nickname === ''
       || this.submitForm.value.challenge === ''
-      || this.submitForm.value.solution === '')
+      || this.submitForm.value.solution === '') {
       return;
+    }
 
     this.isLoading = true;
 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'name': this.submitForm.value.nickname
       })
     };
-    
-    this.http.post<boolean>(this.baseUrl + 'api/v1/CognizantChallenges/' + this.submitForm.value.challenge, this.submitForm.value.solution, httpOptions).subscribe({
+
+    this.http.post<boolean>(this.baseUrl + 'api/v1/CognizantChallenges/' + this.submitForm.value.challenge, JSON.stringify(this.submitForm.value.solution), httpOptions).subscribe({
       next: result => {
         this.isCorrect = result;
         if (result === true) {
-          this.submitForm.reset();
+          this.submitForm.controls['solution'].setValue(this.startingCode);
         }
       },
       error: _ => {
-        this.error = "an error occured!";
+        this.error = 'an error occured!';
       }
     }).add(() => {
       this.isLoading = false;
     });
-    
+
   }
 
   getDescription(id: string): string {
-    if (this.challenges == null)
+    if (this.challenges == null) {
       return;
+    }
 
-    var challenge = this.challenges.find(x => x.id == id);
+    let challenge = this.challenges.find(x => x.id == id);
 
     if (challenge != null && challenge.description != null) {
       return challenge.description;

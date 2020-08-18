@@ -5,6 +5,18 @@
       "type": "Cognizant.Infrastructure.ApplicationModule",
       "properties": {
       }
+    },
+    {
+      "type": "Cognizant.Infrastructure.Data.PgSql.Challenges.Module",
+      "properties": {
+        "ConnectionString": "Host=localhost;Port=5432;Username=postgres;Password=admin;Database=cognizant;"
+      }
+    },
+    {
+      "type": "Cognizant.Infrastructure.Services.Rextester.Module",
+      "properties": {
+        "Uri": "https://rextester.com/rundotnet/api"
+      }
     }
   ]
 }

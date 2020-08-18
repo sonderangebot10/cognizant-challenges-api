@@ -17,8 +17,8 @@ export class ScoreboardComponent {
 
     http.get<Player[]>(baseUrl + 'api/v1/CognizantChallenges/players')
       .subscribe(result => {
-        let descResult = result.sort(function (a, b): any {
-          return b.successSolutions - a.successSolutions
+        const descResult = result.sort(function (a, b): any {
+          return b.successSolutions - a.successSolutions;
         });
 
         this.players = descResult;

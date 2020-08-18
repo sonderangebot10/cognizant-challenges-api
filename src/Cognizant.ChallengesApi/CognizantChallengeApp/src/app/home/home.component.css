@@ -1,7 +1,5 @@
 mat-form-field {
   width: 100%;
-  display: flex;
-  align-content: flex-start;
 }
 
 .correct {
