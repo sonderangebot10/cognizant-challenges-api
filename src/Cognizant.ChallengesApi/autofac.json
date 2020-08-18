@@ -1,0 +1,10 @@
+﻿{
+  "defaultAssembly": "Cognizant.Infrastructure",
+  "modules": [
+    {
+      "type": "Cognizant.Infrastructure.ApplicationModule",
+      "properties": {
+      }
+    }
+  ]
+}

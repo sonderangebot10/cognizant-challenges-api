@@ -1,0 +1,22 @@
+<mat-table [dataSource]="players | slice:0:3" class="mat-elevation-z8">
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> NAME </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.name }} </mat-cell>
+  </ng-container>
+
+  <!-- No. of Success Solutions Column -->
+  <ng-container matColumnDef="successSolutions">
+    <mat-header-cell *matHeaderCellDef> SUCCESS SOLUTIONS </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.successSolutions }} </mat-cell>
+  </ng-container>
+
+  <!-- Successful Tasks Column -->
+  <ng-container matColumnDef="tasks">
+    <mat-header-cell *matHeaderCellDef> TASKS </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.tasks }} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

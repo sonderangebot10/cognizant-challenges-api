@@ -1,0 +1,39 @@
+<form method="post" [formGroup]="submitForm" (ngSubmit)="onSendSolution()">
+  <div class="challenge-form">
+    <mat-form-field>
+      <input matInput type="text" formControlName="nickname" name="nickname" placeholder="Nickname" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Choose a challenge</mat-label>
+      <mat-select formControlName="challenge" name="challenge">
+        <mat-option *ngFor="let challenge of challenges" [value]="challenge.id">{{ challenge.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-label>{{ getDescription(submitForm.value.challenge) }}</mat-label>
+
+    <mat-form-field>
+      <textarea matInput placeholder="Solution" formControlName="solution" cdkTextareaAutosize
+                cdkAutosizeMinRows="6"></textarea>
+    </mat-form-field>
+
+    <button type="submit">Submit solution</button>
+  </div>
+
+  <div *ngIf="isLoading">
+    <img src="https://media0.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif?cid=ecf05e47979s4plk0ujrcdr5vvb6lsa7lmwppn6gtxxfwxq8&rid=giphy.gif" alt="this slowpoke moves" width="250" alt="404 image" />
+    <h3>Loading</h3>
+  </div>
+  <div *ngIf="!isLoading && isCorrect != null">
+    <div class="correct" *ngIf="isCorrect === true; else incorrect">
+       <h3>SUCCESS</h3>
+    </div>
+    <ng-template #incorrect>
+      <h3>INCORRECT</h3>
+    </ng-template>
+  </div>
+</form>
+<div *ngIf="error">
+  <h3>{{ error }}</h3>
+</div>
