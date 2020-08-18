@@ -1,4 +1,5 @@
-﻿using Conginzant.Domain.Challenges;
+﻿using Cognizant.Application.Repositories;
+using Conginzant.Domain.Challenges;
 using System;
 using System.Collections.Generic;
 using System.Linq;

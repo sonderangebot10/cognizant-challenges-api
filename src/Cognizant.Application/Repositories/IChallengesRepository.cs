@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cognizant.Infrastructure.Data.PgSql.Challenges.Repositories
+namespace Cognizant.Application.Repositories
 {
     public interface IChallengesRepository
     {

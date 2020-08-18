@@ -1,4 +1,5 @@
-﻿using Cognizant.Infrastructure.Data.PgSql.Challenges.Repositories;
+﻿using Cognizant.Application.Repositories;
+using Cognizant.Infrastructure.Data.PgSql.Challenges.Repositories;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;

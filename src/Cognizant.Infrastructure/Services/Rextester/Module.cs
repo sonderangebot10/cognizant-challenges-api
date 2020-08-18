@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Cognizant.Application.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;

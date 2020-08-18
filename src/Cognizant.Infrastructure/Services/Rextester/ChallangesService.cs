@@ -1,4 +1,6 @@
-﻿using Cognizant.ChallengesApi.Controllers.Challanges.jsons;
+﻿using Cognizant.Application.Repositories;
+using Cognizant.Application.Services;
+using Cognizant.ChallengesApi.Controllers.Challanges.jsons;
 using Cognizant.Infrastructure.Data.PgSql.Challenges.Repositories;
 using Conginzant.Domain.Challenges;
 using Microsoft.Extensions.Logging;
@@ -12,18 +14,18 @@ using System.Threading.Tasks;
 
 namespace Cognizant.Infrastructure.Services.Rextester
 {
-    class ChallangesService : IChallangesService
+    public class ChallangesService : IChallangesService
     {
         private readonly ILogger<ChallangesService> _logger;
         private readonly IChallengesRepository _repo;
         private readonly string _uri;
         private readonly HttpClient _client;
 
-        public ChallangesService(Context context, ILogger<ChallangesService> logger, IChallengesRepository repo)
+        public ChallangesService(Context context, ILogger<ChallangesService> logger, IChallengesRepository repo, HttpClient client = null)
         {   
             _uri = context?.Uri ?? throw new ArgumentNullException(nameof(context.Uri));
             _logger = logger;
-            _client = new HttpClient();
+            _client = client ?? new HttpClient();
             _repo = repo;
         }
 
@@ -37,14 +39,22 @@ namespace Cognizant.Infrastructure.Services.Rextester
             return await _repo.GetUsersAsync();
         }
 
-        public async Task<bool> PostSolution(string solution, string challengeId)
+        public async Task<bool> PostSolutionAsync(string solution, string challengeId)
         {
             var challanges = await _repo.GetChallengesAsync();
             var challenge = challanges?.Where(x => x.Id.Equals(challengeId)).FirstOrDefault();
 
-            var request = JsonConvert.SerializeObject(new RequestModel() { Program = solution, Input = challenge.InputParam });
+            var requestContent = JsonConvert.SerializeObject(new RequestModel() { Program = solution, Input = challenge.InputParam });
 
-            var response = await _client.PostAsync(_uri, new StringContent(request, Encoding.UTF8, "application/json"));
+            HttpRequestMessage request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new Uri(_uri),
+                Content = new StringContent(requestContent, Encoding.UTF8, "application/json")
+            };
+
+            HttpResponseMessage response = await _client.SendAsync(request);
+
             var responseString = await response.Content.ReadAsStringAsync();
 
             var result = JsonConvert.DeserializeObject<ResponseModel>(responseString)?.Result; 

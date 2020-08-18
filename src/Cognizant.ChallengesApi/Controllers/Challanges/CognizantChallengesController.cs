@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cognizant.Application.Services;
 using Cognizant.Infrastructure.Services.Rextester;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -52,7 +53,7 @@ namespace Cognizant.ChallangesApi.Controllers
         [HttpPost("{challengeId}")]
         public async Task<IActionResult> PostChallenge([FromBody] string solution, [FromHeader] string name, string challengeId)
         {
-            var isCorrect = await _rexService.PostSolution(solution, challengeId);
+            var isCorrect = await _rexService.PostSolutionAsync(solution, challengeId);
 
             if(isCorrect)
             {

@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Challenge } from '../shared/challenge.model';
 
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,7 +20,7 @@ export class HomeComponent implements OnInit {
   error = '';
 
   startingCode =
- `using System;
+ `        using System;
 	using System.Collections.Generic;
 	using System.Linq;
 	using System.Text.RegularExpressions;
@@ -46,9 +48,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient,
-    @Inject('BASE_URL') private baseUrl: string) {
-    http.get<Challenge[]>(baseUrl + 'api/v1/CognizantChallenges/challenges').subscribe(result => {
+    private http: HttpClient) {
+    http.get<Challenge[]>(environment.baseUrl + 'api/v1/CognizantChallenges/challenges').subscribe(result => {
       this.challenges = result;
     }, error => console.error(error));
   }
@@ -72,12 +73,10 @@ export class HomeComponent implements OnInit {
       })
     };
 
-    this.http.post<boolean>(this.baseUrl + 'api/v1/CognizantChallenges/' + this.submitForm.value.challenge, JSON.stringify(this.submitForm.value.solution), httpOptions).subscribe({
+    this.http.post<boolean>(environment.baseUrl + 'api/v1/CognizantChallenges/' + this.submitForm.value.challenge,
+      JSON.stringify(this.submitForm.value.solution), httpOptions).subscribe({
       next: result => {
         this.isCorrect = result;
-        if (result === true) {
-          this.submitForm.controls['solution'].setValue(this.startingCode);
-        }
       },
       error: _ => {
         this.error = 'an error occured!';
@@ -93,7 +92,7 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    let challenge = this.challenges.find(x => x.id == id);
+    const challenge = this.challenges.find(x => x.id === id);
 
     if (challenge != null && challenge.description != null) {
       return challenge.description;
