@@ -12,7 +12,7 @@
 
 ## Installation 
 
-In order to run the application, first you have to boot up PgSql server with the password `admin` and then copy the content of `src/Cognizant.Infrastructure/Data/PgSql/Challanges/ChallengesDB.sql` to the query.
+In order to run the application, first you have to boot up PgSql server with the password `admin` and then copy the content of `src/Cognizant.Infrastructure/Data/PgSql/Challanges/ChallengesDB.sql` to the query (EF migrations were skipped due to technical reasons and time contstraints).
 Then, simply boot up the project with `Cognizant.ChallangesApi` as startup project and run with IIS Express.
 
 ### Prerequisites
